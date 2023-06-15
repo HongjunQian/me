@@ -35,7 +35,7 @@ def fix_it(moves=True, should_move=True):
         return "WD-40"
     elif moves and not should_move:
         return "Duct Tape"
-    else: 
+    else:
         return "No Problem"
 
 
@@ -83,7 +83,6 @@ def loops_1c(number_of_items=5, symbol="#"):
     return symbol_list
 
 
-
 def loops_2():
     """Make a big square starfield.
 
@@ -103,7 +102,7 @@ def loops_2():
           ]
     """
     star_field = []
-    for k in range (10):
+    for k in range(10):
         star_list = []
         for i in range(10):
             star_list.append("*")
@@ -134,7 +133,7 @@ def loops_3():
          so call str(number) to cast.
     """
     number_square = []
-    for i in range (10):
+    for i in range(10):
         number_row = []
         for j in range(10):
             number_row.append(str(i))
@@ -161,7 +160,7 @@ def loops_4():
     ]
     """
     number_square = []
-    for i in range (10):
+    for i in range(10):
         number_row = []
         for j in range(10):
             number_row.append(str(j))
@@ -198,10 +197,10 @@ def loops_5():
     you'll come to see the pros and cons of each over time.
     """
     number_square = []
-    for x in range (10):
+    for x in range(10):
         number_row = []
         for y in range(5):
-            number_row.append (f"(i{x}, j{y})")
+            number_row.append(f"(i{x}, j{y})")
         number_square.append(number_row)
 
     return number_square
@@ -228,10 +227,10 @@ def loops_6():
     TIP: look out for the starting condition.
     """
     number_square = []
-    for x in range (10):
+    for x in range(10):
         number_row = []
         for y in range(x + 1):
-            number_row.append (str(y))
+            number_row.append(str(y))
         number_square.append(number_row)
 
     return number_square
@@ -259,18 +258,17 @@ def loops_7():
     lots of diagrams!
     """
     column = []
-    for i in range (5):
+    for i in range(5):
         row = []
-        for j in range(i,4):
-            row.append (" ")
+        for j in range(i, 4):
+            row.append(" ")
         for j in range(i + 1):
-            row.append ("*")
+            row.append("*")
         for j in range(4 - i):
-            row.append (" ")
+            row.append(" ")
         column.append(row)
         for j in range(i):
-            row.insert(4,"*")
-
+            row.insert(4, "*")
 
     return column
 
