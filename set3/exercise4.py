@@ -22,11 +22,20 @@ def binary_search(low, high, actual_number):
     things much easier.
     """
     tries = 0
-    guess = 0
+
+    while low <= high:
+        guess = (low + high) // 2
+
+        if guess == actual_number:
+            return {"guess": guess, "tries": tries, "actual_number": actual_number}
+        elif guess < actual_number:
+            print(f"Guess: {guess} (Too small)")
+            low = guess + 1
+        else:
+            print(f"Guess: {guess} (Too big)")
+            high = guess - 1
 
     # Write your code in here
-
-    return {"guess": guess, "tries": tries}
 
 
 if __name__ == "__main__":
