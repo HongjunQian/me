@@ -5,7 +5,7 @@ exercise2 flowchart
 https://www.figma.com/file/GRbtELTzBAFDasBoCszEBf/exercise-2-flowchart?type=whiteboard&node-id=0%3A1&t=Xhquc35Ybud8r6Sn-1
 
 Reflection:
-I found it difficult to translate my thinking process into a block of code.For exercise 4 I checked Youtube video to help me do the coding. 
+I found it difficult to translate my thinking process into a block of code.For exercise 4 I checked Youtube video to help me do the coding.
 
 Question for set 3 exercise 1 stubborn_asker
 

@@ -6,6 +6,26 @@ Steps on the way to making your own guessing game.
 import random
 
 
+def super_asker(low, high, message):
+    """Robust asking function.
+
+    Combine what you learnt from stubborn_asker and not_number_rejector
+    to make a function that does it all!
+    """
+
+    while True:
+        try:
+            number = int(input(message))
+            if low <= number <= high:
+                return number
+            else:
+                print(
+                    "That's not a number within the specified range. Please try again."
+                )
+        except Exception:
+            print("That's not a valid number. Please try again.")
+
+
 def advancedGuessingGame():
     """Play a guessing game with a user.
 
@@ -31,34 +51,25 @@ def advancedGuessingGame():
 
     print("\nWelcome to the advancedguessing game!")
     print("Please type 2 numbers to start:")
-    upperBound = input("Enter an upper bound: ")
-    lowerBound = input("Enter a lower bound: ")
+
+    lowerBound = super_asker(-200000, 200000, "Enter a lower bound: ")
+    upperBound = super_asker(
+        lowerBound + 2, 200000, f"Enter a upper bound, {lowerBound + 2} or above: "
+    )
+
     print(f"OK then, a number between {lowerBound} and {upperBound} ?")
+    actualNumber = random.randint(lowerBound, upperBound)
 
-    try:
-        upperBound = int(upperBound)
-        lowerBound = int(lowerBound)
-        actualNumber = random.randint(lowerBound, upperBound)
-
-        guessed = False
-
-        while not guessed:
-            try:
-                guessedNumber = int(input("Guess a number: "))
-                print(f"You guessed {guessedNumber},")
-                if guessedNumber == actualNumber:
-                    print(f"You got it!! It was {actualNumber}")
-                    guessed = True
-                elif guessedNumber < actualNumber:
-                    print("Too small, try again :'(")
-                else:
-                    print("Too big, try again :'(")
-            except Exception:
-                print("Please type a valid number. Try again!")
-
-        return "You got it!"
-    except Exception:
-        print("Please type valid numbers for the bounds. Try again!")
+    while True:
+        guessedNumber = super_asker(lowerBound, upperBound, "Guess a number: ")
+        print(f"You guessed {guessedNumber},")
+        if guessedNumber == actualNumber:
+            print(f"You got it!! It was {actualNumber}")
+            return "You got it!"
+        elif guessedNumber < actualNumber:
+            print("Too small, try again :'(")
+        else:
+            print("Too big, try again :'(")
 
     # the tests are looking for the exact string "You got it!". Don't modify that!
 

@@ -47,11 +47,13 @@ def stubborn_asker(low, high):
 
     Look up the docs for a function called "input"
     """
-
-    number = None
-    while number is None or number < low or number > high:
-        number = int(input("Give me a number between {} and {}: ".format(low, high)))
-    print("Great! You entered the right number:", number)
+    while True:
+        try:
+            number = int(input("Enter a number between {} and {}: ".format(low, high)))
+            if low < number < high:
+                return number
+        except Exception:
+            print("Please try again")
 
 
 def not_number_rejector(message):
@@ -76,6 +78,7 @@ def super_asker(low, high):
     Combine what you learnt from stubborn_asker and not_number_rejector
     to make a function that does it all!
     """
+
     while True:
         try:
             number = int(input("Enter a number between {} and {}: ".format(low, high)))
