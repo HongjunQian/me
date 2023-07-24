@@ -37,10 +37,16 @@ def get_some_details():
          dictionary, you'll need integer indeces for lists, and named keys for
          dictionaries.
     """
-    json_data = open(LOCAL + "/lazyduck.json").read()
+    with open(LOCAL + "/lazyduck.json", "r", encoding="utf-8") as data_file:
+        json_data = json.load(data_file)
+        print(json_data)
 
-    data = json.loads(json_data)
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+    man = json_data["results"][0]
+    return {
+        "lastName": man["name"]["last"],
+        "password": man["login"]["password"],
+        "postcodePlusID": man["location"]["postcode"],
+    }
 
 
 def wordy_pyramid():
@@ -77,7 +83,18 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &wordlength=
     """
+
     pyramid = []
+    for i in range(3, 10, 2):
+        j = requests.get(
+            f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
+        )
+        pyramid.append(j.text)
+    for i in range(15, 3, -2):
+        j = requests.get(
+            f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
+        )
+        pyramid.append(j.text)
 
     return pyramid
 
@@ -99,7 +116,7 @@ def pokedex(low=1, high=5):
     id = 5
     url = f"https://pokeapi.co/api/v2/pokemon/{id}"
     r = requests.get(url)
-    if r.status_code is 200:
+    if r.status_code == 200:
         the_json = json.loads(r.text)
 
     return {"name": None, "weight": None, "height": None}
