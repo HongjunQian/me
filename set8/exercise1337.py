@@ -235,10 +235,10 @@ def random_filler_text(number_of_words=200) -> str:
 
     my_dict = make_filler_text_dictionary()
 
-    # for _ in range(number_of_words):
-    #     my_dict.append()
-
     words = []
+    for i in range(200):
+        this_word = my_dict[random.randint(3, 6)][random.randint(0, 3)]
+        words.append(this_word)
 
     return " ".join(words)
 
@@ -258,7 +258,12 @@ def fast_filler(number_of_words=200) -> str:
     If you get this one to work, you are a Very Good Programmer™!
     """
 
+    # read local file -> send to internet -> create file -> exit.
+
     fname = "dict_cache.json"
+
+    with open(LOCAL + "", "r", encoding="utf-8") as fname:
+
 
     return None
 
