@@ -262,7 +262,7 @@ def fast_filler(number_of_words=200) -> str:
 
     fname = "dict_cache.json"
 
-    with open(LOCAL + "", "r", encoding="utf-8") as fname:
+    # with open(LOCAL + "", "r", encoding="utf-8") as fname:
 
 
     return None
