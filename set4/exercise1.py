@@ -37,15 +37,26 @@ def get_some_details():
          dictionary, you'll need integer indeces for lists, and named keys for
          dictionaries.
     """
-    with open(LOCAL + "/lazyduck.json", "r", encoding="utf-8") as data_file:
-        json_data = json.load(data_file)
-        print(json_data)
+    # with open(LOCAL + "/lazyduck.json", "r", encoding="utf-8") as data_file:
+    #     json_data = json.load(data_file)
+    #     print(json_data)
 
-    man = json_data["results"][0]
+    # man = json_data["results"][0]
+
+    # return {
+    #     "lastName": man["name"]["last"],
+    #     "password": man["login"]["password"],
+    #     "postcode+ID": int(man["location"]["postcode"]) + int(man["id"]["value"]),
+    # }
+
+    json_data = open(LOCAL + "/lazyduck.json").read()
+    data = json.loads(json_data)
+
     return {
-        "lastName": man["name"]["last"],
-        "password": man["login"]["password"],
-        "postcodePlusID": man["location"]["postcode"],
+        "lastName": data["results"][0]["name"]["last"],
+        "password": data["results"][0]["login"]["password"],
+        "postcodePlusID": data["results"][0]["location"]["postcode"]
+        + int(data["results"][0]["id"]["value"]),
     }
 
 
@@ -85,12 +96,12 @@ def wordy_pyramid():
     """
 
     pyramid = []
-    for i in range(3, 10, 2):
+    for i in range(3, 20, 2):
         j = requests.get(
             f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
         )
         pyramid.append(j.text)
-    for i in range(15, 3, -2):
+    for i in range(20, 2, -2):
         j = requests.get(
             f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
         )
@@ -113,13 +124,41 @@ def pokedex(low=1, high=5):
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    id = 5
-    url = f"https://pokeapi.co/api/v2/pokemon/{id}"
-    r = requests.get(url)
-    if r.status_code == 200:
-        the_json = json.loads(r.text)
+    # id = 5
+    # url = f"https://pokeapi.co/api/v2/pokemon/{id}"
+    # r = requests.get(url)
+    # if r.status_code == 200:
+    #     the_json = json.loads(r.text)
 
-    return {"name": None, "weight": None, "height": None}
+    template = "https://pokeapi.co/api/v2/pokemon/{id}"
+    the_json = None
+
+    height = -1
+    weight = -1
+    name = ""
+    # return {"name": None, "weight": None, "height": None}
+    # r = {status_code:200, txt: {} }
+    while low < high:
+        # set up url for the id value
+        url = template.format(id=low)
+        # get url data
+        r = requests.get(url)
+
+        # status_code returns a number that indicates the status (200 is OK, 404 is Not Found)
+        if r.status_code == 200:
+            # load jason file
+            the_json = json.loads(r.text)
+
+        # != not equal
+        # jason file
+        # in order to find the maximum
+        if the_json != None and the_json["height"] > height:
+            height = the_json["height"]
+            weight = the_json["weight"]
+            name = the_json["name"]
+        low = low + 1
+
+    return {"name": name, "weight": weight, "height": height}
 
 
 def diarist():
@@ -139,6 +178,16 @@ def diarist():
 
     NOTE: this function doesn't return anything. It has the _side effect_ of modifying the file system
     """
+
+    with open(f"{LOCAL}/Trispokedovetiles(laser).gcode", "r") as laseread:
+        lasers_shot = 0
+        for line in laseread:
+            if "M10 P1" in line:
+                lasers_shot += 1
+    with open(
+        r"C:\Users\13766\1161\me\set4\lasers.pew", "w", encoding="utf-8"
+    ) as history_book:
+        history_book.write(str(lasers_shot))
     pass
 
 
